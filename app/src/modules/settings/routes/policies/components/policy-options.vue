@@ -41,10 +41,10 @@ function deletePolicy() {
 				@click="!hasNestedPolicies ? (confirmDelete = true) : null"
 			>
 				<v-list-item-icon>
-					<v-icon name="delete_forever" />
+					<v-icon name="delete" />
 				</v-list-item-icon>
 				<v-list-item-content>
-					<span>{{ t('delete_forever') }}</span>
+					{{ t('delete_folder') }}
 				</v-list-item-content>
 			</v-list-item>
 		</v-list>

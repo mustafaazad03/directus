@@ -116,6 +116,7 @@ function onGroupSortChange(policies: Policy[]) {
 
 <style lang="scss" scoped>
 .policy-item {
+	margin-bottom: 8px;
 	.v-list-item {
 		--v-list-item-min-height: 48px;
 		--v-list-item-padding: 0 8px;
