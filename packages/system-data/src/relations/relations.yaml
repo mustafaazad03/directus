@@ -246,6 +246,12 @@ data:
     junction_field: policy
     sort_field: sort
 
+  ### Policies hierarchy
+  - many_collection: directus_policies
+    many_field: parent
+    one_collection: directus_policies
+    one_field: children
+
   ### Roles
   - many_collection: directus_roles
     many_field: parent

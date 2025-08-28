@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { useDialogRoute } from '@/composables/use-dialog-route';
 import { ref } from 'vue';
+import { useApi } from '@/composables/use-api';
 import { useI18n } from 'vue-i18n';
 import { useRouter } from 'vue-router';
 import { useSave } from './use-save.js';
@@ -14,8 +15,9 @@ const isOpen = useDialogRoute();
 const name = ref<string | null>(null);
 const appAccess = ref(false);
 const adminAccess = ref(false);
+const parentId = ref<string | null>(null);
 
-const { saving, save } = useSave({ name, appAccess, adminAccess });
+const { saving, save } = useSave({ name, appAccess, adminAccess, parentId });
 </script>
 
 <template>

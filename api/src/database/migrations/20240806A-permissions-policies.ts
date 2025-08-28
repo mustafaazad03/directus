@@ -85,6 +85,7 @@ export async function up(knex: Knex) {
 		table.boolean('enforce_tfa').defaultTo(false).notNullable();
 		table.boolean('admin_access').defaultTo(false).notNullable();
 		table.boolean('app_access').defaultTo(false).notNullable();
+		table.uuid('parent').references('directus_policies.id');
 	});
 
 	/////////////////////////////////////////////////////////////////////////////////////////////////

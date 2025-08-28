@@ -18,6 +18,28 @@ fields:
     display: icon
     width: half
 
+  - field: color
+    interface: select-color
+    width: half
+
+  - field: hidden
+    interface: boolean
+    special:
+      - cast-boolean
+    options:
+      label: $t:field_options.directus_collections.hidden_label
+    width: half
+
+  - field: collapse
+    interface: select-dropdown
+    options:
+      choices:
+        - text: $t:open
+          value: open
+        - text: $t:collapsed
+          value: collapsed
+    width: half
+
   - field: description
     interface: input
     options:
@@ -26,6 +48,43 @@ fields:
     display: formatted-value
     display_options:
       translate: true
+
+  - field: sort
+    interface: input
+    width: half
+
+  - field: parent
+    interface: select-dropdown-m2o
+    options:
+      template: '{{ name }}'
+      filter:
+        id:
+          _neq: '{{ id }}'
+    special:
+      - m2o
+    width: half
+    display: related-values
+    display_options:
+      template: '{{ name }}'
+
+  - field: children
+    hidden: true
+    interface: list-o2m-tree-view
+    note: $t:children
+    special:
+      - o2m
+    options:
+      displayTemplate: '{{ name }}'
+      enableCreate: false
+      fields:
+        - name
+      filter:
+        id:
+          _neq: '{{ id }}'
+    display: related-values
+    display_options:
+      template: '{{ name }}'
+    width: full
 
   - field: permissions
     interface: system-permissions

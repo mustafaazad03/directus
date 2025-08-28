@@ -15,6 +15,9 @@ export type DirectusPolicy<Schema> = MergeCoreCollection<
 		enforce_tfa: boolean;
 		admin_access: boolean;
 		app_access: boolean;
+		parent: string | null;
+		sort: number | null;
+		color: string | null;
 		permissions: number[] | DirectusPermission<Schema>[];
 		users: string[] | DirectusUser<Schema>[];
 		roles: string[] | DirectusRole<Schema>[];

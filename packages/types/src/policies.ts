@@ -7,6 +7,10 @@ export interface Policy {
 	ip_access: string[] | null;
 	app_access: boolean;
 	admin_access: boolean;
+	parent?: string | null;
+	children?: Policy[];
+	sort?: number | null;
+	color?: string | null;
 }
 
 export interface Globals {

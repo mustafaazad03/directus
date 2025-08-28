@@ -9,9 +9,10 @@ export interface UseSaveOptions {
 	name: Ref<string | null>;
 	adminAccess: Ref<boolean>;
 	appAccess: Ref<boolean>;
+	parentId?: Ref<string | null>;
 }
 
-export function useSave({ name, adminAccess, appAccess }: UseSaveOptions) {
+export function useSave({ name, adminAccess, appAccess, parentId }: UseSaveOptions) {
 	const router = useRouter();
 
 	const saving = ref(false);
@@ -28,6 +29,7 @@ export function useSave({ name, adminAccess, appAccess }: UseSaveOptions) {
 				name: name.value,
 				admin_access: adminAccess.value,
 				app_access: appAccess.value,
+				parent: parentId?.value ?? null,
 			});
 
 			if (appAccess.value === true && adminAccess.value === false) {
