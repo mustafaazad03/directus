@@ -15,7 +15,17 @@ import Draggable from 'vuedraggable';
 import { merge } from 'lodash';
 import { useExpandCollapse } from './composables/use-expand-collapse';
 
-type PolicyBaseFields = 'id' | 'name' | 'icon' | 'description' | 'parent' | 'color' | 'sort';
+type PolicyBaseFields =
+	| 'id'
+	| 'name'
+	| 'icon'
+	| 'description'
+	| 'parent'
+	| 'color'
+	| 'sort'
+	| 'hidden'
+	| 'collapse'
+	| 'folderAt';
 
 type PolicyResponse = Pick<Policy, PolicyBaseFields> & {
 	users: [{ count: { user: number } }];
@@ -126,7 +136,21 @@ async function fetchPolicies() {
 		const response = await fetchAll<PolicyResponse>(`/policies`, {
 			params: {
 				limit: -1,
-				fields: ['id', 'name', 'icon', 'description', 'parent', 'color', 'sort', 'hidden', 'collapse', 'admin_access', 'users', 'roles'],
+				fields: [
+					'id',
+					'name',
+					'icon',
+					'description',
+					'parent',
+					'color',
+					'sort',
+					'hidden',
+					'collapse',
+					'folderAt',
+					'admin_access',
+					'users',
+					'roles',
+				],
 				deep: {
 					users: {
 						_aggregate: { count: 'user' },
@@ -208,7 +232,14 @@ async function onUpdatePolicy(payload: { id: string; hidden?: boolean; collapse?
 }
 
 function navigateToPolicy({ item }: { item: PolicyItem }) {
-	router.push(`/settings/policies/${item.id}`);
+	const isFolder = item.folderAt !== null && item.folderAt !== undefined;
+	if (isFolder) {
+		// ensure only the edit dialog is shown
+		policyDialogActive.value = false;
+		editPolicy.value = item;
+	} else {
+		router.push(`/settings/policies/${item.id}`);
+	}
 }
 
 async function deletePolicy(policy: PolicyItem) {

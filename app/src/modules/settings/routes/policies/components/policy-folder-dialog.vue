@@ -51,7 +51,7 @@ async function save() {
 		if (props.policy) {
 			await api.patch(`/policies/${props.policy.id}`, values);
 		} else {
-			await api.post('/policies', values);
+			await api.post('/policies', { ...values, folderAt: new Date() });
 		}
 
 		emit('created');

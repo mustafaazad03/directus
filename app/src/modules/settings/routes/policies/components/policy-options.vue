@@ -20,69 +20,31 @@ function deletePolicy() {
 </script>
 
 <template>
-	<v-menu placement="bottom-end">
-		<template #activator="{ on }">
+	<v-menu placement="left-start" show-arrow>
+		<template #activator="{ toggle }">
 			<v-icon
 				class="ctx-toggle"
-				name="more_horiz"
+				name="more_vert"
 				clickable
-				@click.stop="on"
+				@click.stop.prevent="toggle"
 			/>
 		</template>
 
 		<v-list>
-			<v-list-item clickable @click="$emit('update', { hidden: !(props.policy.hidden ?? false) })">
-				<template v-if="props.policy.hidden === false">
-					<v-list-item-icon><v-icon name="visibility_off" /></v-list-item-icon>
-					<v-list-item-content>
-						{{ t('make_folder_hidden') }}
-					</v-list-item-content>
-				</template>
-				<template v-else>
-					<v-list-item-icon><v-icon name="visibility" /></v-list-item-icon>
-					<v-list-item-content>
-						{{ t('make_folder_visible') }}
-					</v-list-item-content>
-				</template>
-			</v-list-item>
-
-			<v-divider />
-
-			<v-list-item :active="props.policy.collapse === 'open'" clickable @click="$emit('update', { collapse: 'open' })">
+			<!-- Only show Delete Forever; visible for all folders, disabled when it has children -->
+			<v-list-item
+				v-if="(props.policy as any).folderAt !== null && (props.policy as any).folderAt !== undefined"
+				:disabled="hasNestedPolicies"
+				:class="{ danger: !hasNestedPolicies }"
+				clickable
+				v-tooltip="hasNestedPolicies ? t('cannot_delete_non_empty_folder') : undefined"
+				@click="!hasNestedPolicies ? (confirmDelete = true) : null"
+			>
 				<v-list-item-icon>
-					<v-icon name="folder_open" />
+					<v-icon name="delete_forever" />
 				</v-list-item-icon>
 				<v-list-item-content>
-					{{ t('start_open') }}
-				</v-list-item-content>
-			</v-list-item>
-
-			<v-list-item :active="props.policy.collapse === 'collapsed'" clickable @click="$emit('update', { collapse: 'collapsed' })">
-				<v-list-item-icon>
-					<v-icon name="folder" />
-				</v-list-item-icon>
-				<v-list-item-content>
-					{{ t('start_collapsed') }}
-				</v-list-item-content>
-			</v-list-item>
-
-			<v-list-item :active="props.policy.collapse === 'locked'" clickable @click="$emit('update', { collapse: 'locked' })">
-				<v-list-item-icon>
-					<v-icon name="folder_lock" />
-				</v-list-item-icon>
-				<v-list-item-content>
-					{{ t('always_open') }}
-				</v-list-item-content>
-			</v-list-item>
-
-			<v-divider />
-
-			<v-list-item v-if="hasNestedPolicies" clickable @click="confirmDelete = true">
-				<v-list-item-icon>
-					<v-icon name="delete" />
-				</v-list-item-icon>
-				<v-list-item-content>
-					<span>{{ t('delete_folder') }}</span>
+					<span>{{ t('delete_forever') }}</span>
 				</v-list-item-content>
 			</v-list-item>
 		</v-list>

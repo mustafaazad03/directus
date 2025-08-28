@@ -52,8 +52,8 @@ function onGroupSortChange(policies: Policy[]) {
 			dense
 			clickable
 			:class="{ hidden: (policy as any).hidden }"
-			:to="!hasChildren ? `/settings/policies/${policy.id}` : undefined"
-			@click.self="hasChildren ? $emit('editPolicy', policy) : null"
+			:to="(policy as any).folderAt ? undefined : `/settings/policies/${policy.id}`"
+			@click.self="(policy as any).folderAt ? $emit('editPolicy', policy) : null"
 		>
 			<v-list-item-icon class="drag-handle" :class="{ disabled: disableDrag }">
 				<v-icon name="drag_handle" />
@@ -73,7 +73,13 @@ function onGroupSortChange(policies: Policy[]) {
 				<v-icon v-tooltip="!isCollapsed ? t('collapse') : t('expand')" :name="!isCollapsed ? 'unfold_less' : 'unfold_more'" />
 			</div>
 
-			<policy-options :policy="policy" :has-nested-policies="hasChildren" @delete="$emit('deletePolicy', policy)" @update="$emit('updatePolicy', { id: policy.id, ...$event })" />
+			<policy-options
+				v-if="(policy as any).folderAt !== null && (policy as any).folderAt !== undefined"
+				:policy="policy"
+				:has-nested-policies="hasChildren"
+				@delete="$emit('deletePolicy', policy)"
+				@update="$emit('updatePolicy', { id: policy.id, ...$event })"
+			/>
 		</v-list-item>
 
 		<transition-expand>
@@ -142,6 +148,7 @@ function onGroupSortChange(policies: Policy[]) {
 		.policy-name {
 			flex-grow: 1;
 			margin-right: 12px;
+			margin-left: 10px;
 		}
 	}
 
