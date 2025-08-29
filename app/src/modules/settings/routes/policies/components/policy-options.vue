@@ -41,9 +41,9 @@ function deletePolicy() {
 				@click="!hasNestedPolicies ? (confirmDelete = true) : null"
 			>
 				<v-list-item-icon>
-					<v-icon name="delete" />
+					<v-icon name="delete" style="color: var(--theme--danger)" />
 				</v-list-item-icon>
-				<v-list-item-content>
+				<v-list-item-content style="color: var(--theme--danger)">
 					{{ t('delete_folder') }}
 				</v-list-item-content>
 			</v-list-item>
