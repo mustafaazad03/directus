@@ -84,8 +84,7 @@ function onGroupSortChange(policies: Policy[]) {
 
 		<transition-expand>
 			<draggable
-				v-if="hasChildren && !isCollapsed"
-				v-show="nestedPolicies.some((policy) => visibilityTree.findChild?.(policy.id)?.visible)"
+				v-if="!isCollapsed"
 				tag="v-list"
 				:model-value="nestedPolicies"
 				:group="{ name: 'policies' }"
@@ -116,7 +115,8 @@ function onGroupSortChange(policies: Policy[]) {
 
 <style lang="scss" scoped>
 .policy-item {
-	margin-bottom: 8px;
+	margin-bottom: -2px;
+
 	.v-list-item {
 		--v-list-item-min-height: 48px;
 		--v-list-item-padding: 0 8px;
