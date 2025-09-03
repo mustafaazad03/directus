@@ -27,7 +27,7 @@ function deleteFlow() {
 
     <v-list>
       <v-list-item
-        v-if="(props.flow as any).folderAt !== null && (props.flow as any).folderAt !== undefined"
+        v-if="(props.flow as any).folder_at !== null && (props.flow as any).folder_at !== undefined"
         :disabled="hasNestedFlows"
         :class="{ danger: !hasNestedFlows }"
         clickable

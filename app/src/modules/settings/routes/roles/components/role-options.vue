@@ -27,7 +27,7 @@ function deleteRole() {
 
     <v-list>
       <v-list-item
-        v-if="(props.role as any).folderAt !== null && (props.role as any).folderAt !== undefined"
+        v-if="(props.role as any).folder_at !== null && (props.role as any).folder_at !== undefined"
         :disabled="hasNestedRoles"
         :class="{ danger: !hasNestedRoles }"
         clickable

@@ -21,6 +21,8 @@ fields:
   - field: color
     interface: select-color
     width: half
+    hidden: true
+    system: true
 
   - field: hidden
     interface: boolean
@@ -29,6 +31,8 @@ fields:
     options:
       label: $t:field_options.directus_collections.hidden_label
     width: half
+    hidden: true
+    system: true
 
   - field: collapse
     interface: select-dropdown
@@ -39,6 +43,8 @@ fields:
         - text: $t:collapsed
           value: collapsed
     width: half
+    hidden: true
+    system: true
 
   - field: description
     interface: input
@@ -52,6 +58,8 @@ fields:
   - field: sort
     interface: input
     width: half
+    hidden: true
+    system: true
 
   - field: parent
     interface: select-dropdown-m2o
@@ -66,6 +74,13 @@ fields:
     display: related-values
     display_options:
       template: '{{ name }}'
+    hidden: true
+    system: true
+
+  - field: folder_at
+    hidden: true
+    interface: input
+    system: true
 
   - field: children
     hidden: true

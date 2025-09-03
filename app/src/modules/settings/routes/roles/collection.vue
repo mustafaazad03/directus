@@ -26,7 +26,7 @@ type RoleBaseFields =
 	| 'sort'
 	| 'hidden'
 	| 'collapse'
-	| 'folderAt';
+	| 'folder_at';
 
 type RoleResponse = Pick<Role, RoleBaseFields> & {
 	users: [{ count: { id: number } }];
@@ -143,7 +143,7 @@ async function fetchRoles() {
 					'sort',
 					'hidden',
 					'collapse',
-					'folderAt',
+					'folder_at',
 					'users',
 				],
 				deep: {
@@ -207,7 +207,7 @@ async function onUpdateRole(payload: { id: string; hidden?: boolean; collapse?: 
 }
 
 function navigateToRole({ item }: { item: RoleItemType }) {
-	const isFolder = (item as any).folderAt !== null && (item as any).folderAt !== undefined;
+	const isFolder = (item as any).folder_at !== null && (item as any).folder_at !== undefined;
 	if (isFolder) {
 		roleDialogActive.value = false;
 		editRole.value = item;

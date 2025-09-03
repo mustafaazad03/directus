@@ -52,8 +52,8 @@ function onGroupSortChange(roles: Role[]) {
       dense
       clickable
       :class="{ hidden: (role as any).hidden }"
-      :to="(role as any).folderAt ? undefined : `/settings/roles/${(role as any).id}`"
-      @click.self="(role as any).folderAt ? $emit('editRole', role) : null"
+      :to="(role as any).folder_at ? undefined : `/settings/roles/${(role as any).id}`"
+      @click.self="(role as any).folder_at ? $emit('editRole', role) : null"
     >
       <v-list-item-icon class="drag-handle" :class="{ disabled: disableDrag }">
         <v-icon name="drag_handle" />
@@ -74,7 +74,7 @@ function onGroupSortChange(roles: Role[]) {
       </div>
 
       <role-options
-        v-if="(role as any).folderAt !== null && (role as any).folderAt !== undefined"
+        v-if="(role as any).folder_at !== null && (role as any).folder_at !== undefined"
         :role="role"
         :has-nested-roles="hasChildren"
         @delete="$emit('deleteRole', role)"

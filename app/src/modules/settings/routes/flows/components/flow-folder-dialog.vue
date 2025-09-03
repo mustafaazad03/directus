@@ -51,7 +51,7 @@ async function save() {
     if (props.flow) {
       await api.patch(`/flows/${(props.flow as any).id}`, values);
     } else {
-      await api.post('/flows', { ...values, folderAt: new Date(), status: 'inactive', trigger: 'manual' });
+      await api.post('/flows', { ...values, folder_at: new Date(), status: 'inactive', trigger: 'manual' });
     }
 
     emit('created');

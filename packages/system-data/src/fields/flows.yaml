@@ -7,6 +7,12 @@ fields:
   - field: name
   - field: icon
   - field: color
+    interface: select-color
+    display: color
+    width: half
+    hidden: true
+    system: true
+
   - field: description
   - field: status
   - field: trigger
@@ -18,6 +24,49 @@ fields:
   - field: operations
     special:
       - o2m
+  - field: hidden
+    interface: boolean
+    special:
+      - cast-boolean
+    width: half
+    hidden: true
+    system: true
+  - field: collapse
+    interface: select-dropdown
+    options:
+      choices:
+        - text: $t:open
+          value: open
+        - text: $t:collapsed
+          value: collapsed
+    width: half
+    hidden: true
+    system: true
+  - field: sort
+    interface: input
+    width: half
+    hidden: true
+    system: true
+  - field: parent
+    interface: select-dropdown-m2o
+    options:
+      template: '{{ name }}'
+      filter:
+        id:
+          _neq: '{{ id }}'
+    special:
+      - m2o
+    width: half
+    display: related-values
+    display_options:
+      template: '{{ name }}'
+    hidden: true
+    system: true
+    
+  - field: folder_at
+    hidden: true
+    interface: input
+    system: true
   - field: date_created
     special:
       - date-created
