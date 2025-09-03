@@ -126,7 +126,7 @@ async function onUpdateFlow(payload: { id: string; hidden?: boolean; collapse?: 
 }
 
 function navigateToFlowOrFolder(item: any) {
-	const isFolder = item.folderAt !== null && item.folderAt !== undefined;
+	const isFolder = item.folder_at !== null && item.folder_at !== undefined;
 	if (isFolder) {
 		flowDialogActive.value = false;
 		editFolder.value = item as any;

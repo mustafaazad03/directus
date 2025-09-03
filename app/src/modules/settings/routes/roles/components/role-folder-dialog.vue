@@ -51,7 +51,7 @@ async function save() {
     if (props.role) {
       await api.patch(`/roles/${(props.role as any).id}`, values);
     } else {
-      await api.post('/roles', { ...values, folderAt: new Date() });
+      await api.post('/roles', { ...values, folder_at: new Date() });
     }
 
     emit('created');

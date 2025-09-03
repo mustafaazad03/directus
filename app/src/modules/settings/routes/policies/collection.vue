@@ -15,27 +15,29 @@ import Draggable from 'vuedraggable';
 import { merge } from 'lodash';
 import { useExpandCollapse } from './composables/use-expand-collapse';
 
-type PolicyBaseFields =
-	| 'id'
-	| 'name'
-	| 'icon'
-	| 'description'
-	| 'parent'
-	| 'color'
-	| 'sort'
-	| 'hidden'
-	| 'collapse'
-	| 'folderAt';
+// PolicyBaseFields retained for potential future narrowing, but currently unused
 
-type PolicyResponse = Pick<Policy, PolicyBaseFields> & {
-	users: [{ count: { user: number } }];
-	roles: [{ count: { role: number } }];
+type PolicyResponse = Policy & {
+  parent?: string | null;
+  color?: string | null;
+  sort?: number | null;
+  hidden?: boolean | null;
+  collapse?: 'open' | 'collapsed' | 'locked' | null;
+  folder_at?: string | null;
+  users: [{ count: { user: number } }];
+  roles: [{ count: { role: number } }];
 };
 
-type PolicyItem = Pick<Policy, PolicyBaseFields> & {
-	userCount?: number;
-	roleCount?: number;
-	isCollapsed?: boolean;
+type PolicyItem = Policy & {
+  parent?: string | null;
+  color?: string | null;
+  sort?: number | null;
+  hidden?: boolean | null;
+  collapse?: 'open' | 'collapsed' | 'locked' | null;
+  folder_at?: string | null;
+  userCount?: number;
+  roleCount?: number;
+  isCollapsed?: boolean;
 };
 
 const { t } = useI18n();
@@ -48,7 +50,7 @@ const editPolicy = ref<PolicyItem | null>();
 const policies = ref<PolicyItem[]>([]);
 const loading = ref(false);
 
-const { collapsedIds, hasExpandablePolicies, expandAll, collapseAll, toggleCollapse } = useExpandCollapse();
+const { collapsedIds, hasExpandablePolicies, expandAll, toggleCollapse } = useExpandCollapse();
 
 const translatedPolicies = computed(() => {
 	return translate(policies.value).map((policy) => ({
@@ -146,7 +148,7 @@ async function fetchPolicies() {
 					'sort',
 					'hidden',
 					'collapse',
-					'folderAt',
+					'folder_at',
 					'admin_access',
 					'users',
 					'roles',
@@ -232,7 +234,7 @@ async function onUpdatePolicy(payload: { id: string; hidden?: boolean; collapse?
 }
 
 function navigateToPolicy({ item }: { item: PolicyItem }) {
-	const isFolder = item.folderAt !== null && item.folderAt !== undefined;
+	const isFolder = item.folder_at !== null && item.folder_at !== undefined;
 	if (isFolder) {
 		// ensure only the edit dialog is shown
 		policyDialogActive.value = false;

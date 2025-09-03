@@ -52,8 +52,8 @@ function onGroupSortChange(policies: Policy[]) {
 			dense
 			clickable
 			:class="{ hidden: (policy as any).hidden }"
-			:to="(policy as any).folderAt ? undefined : `/settings/policies/${policy.id}`"
-			@click.self="(policy as any).folderAt ? $emit('editPolicy', policy) : null"
+			:to="(policy as any).folder_at ? undefined : `/settings/policies/${policy.id}`"
+			@click.self="(policy as any).folder_at ? $emit('editPolicy', policy) : null"
 		>
 			<v-list-item-icon class="drag-handle" :class="{ disabled: disableDrag }">
 				<v-icon name="drag_handle" />
@@ -74,7 +74,7 @@ function onGroupSortChange(policies: Policy[]) {
 			</div>
 
 			<policy-options
-				v-if="(policy as any).folderAt !== null && (policy as any).folderAt !== undefined"
+				v-if="(policy as any).folder_at !== null && (policy as any).folder_at !== undefined"
 				:policy="policy"
 				:has-nested-policies="hasChildren"
 				@delete="$emit('deletePolicy', policy)"

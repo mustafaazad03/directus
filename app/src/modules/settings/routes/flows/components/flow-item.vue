@@ -46,8 +46,8 @@ function onGroupSortChange(flows: FlowRaw[]) {
       dense
       clickable
       :class="{ hidden: (flow as any).hidden }"
-      :to="(flow as any).folderAt ? undefined : `/settings/flows/${(flow as any).id}`"
-      @click.self="(flow as any).folderAt ? $emit('editFlow', flow) : null"
+      :to="(flow as any).folder_at ? undefined : `/settings/flows/${(flow as any).id}`"
+      @click.self="(flow as any).folder_at ? $emit('editFlow', flow) : null"
     >
       <v-list-item-icon class="drag-handle" :class="{ disabled: disableDrag }">
         <v-icon name="drag_handle" />
@@ -68,7 +68,7 @@ function onGroupSortChange(flows: FlowRaw[]) {
       </div>
 
       <flow-options
-        v-if="(flow as any).folderAt !== null && (flow as any).folderAt !== undefined"
+        v-if="(flow as any).folder_at !== null && (flow as any).folder_at !== undefined"
         :flow="flow"
         :has-nested-flows="hasChildren"
         @delete="$emit('deleteFlow', flow)"

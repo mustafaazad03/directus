@@ -45,6 +45,42 @@ fields:
     display: related-values
     display_options:
       template: '{{ name }}'
+    hidden: true
+    system: true
+  - field: hidden
+    interface: boolean
+    special:
+      - cast-boolean
+    width: half
+    hidden: true
+    system: true
+  - field: collapse
+    interface: select-dropdown
+    options:
+      choices:
+        - text: $t:open
+          value: open
+        - text: $t:collapsed
+          value: collapsed
+    width: half
+    hidden: true
+    system: true
+  - field: sort
+    interface: input
+    width: half
+    hidden: true
+    system: true
+  - field: folder_at
+    hidden: true
+    interface: input
+    system: true
+
+  - field: color
+    interface: select-color
+    display: color
+    width: half
+    hidden: true
+    system: true
 
   - field: children
     hidden: true

@@ -33,7 +33,7 @@ function deletePolicy() {
 		<v-list>
 			<!-- Only show Delete Forever; visible for all folders, disabled when it has children -->
 			<v-list-item
-				v-if="(props.policy as any).folderAt !== null && (props.policy as any).folderAt !== undefined"
+				v-if="(props.policy as any).folder_at !== null && (props.policy as any).folder_at !== undefined"
 				:disabled="hasNestedPolicies"
 				:class="{ danger: !hasNestedPolicies }"
 				clickable
